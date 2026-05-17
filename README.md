@@ -2,8 +2,6 @@
 
 **A Socratic, locally-running Gemma 4 tutor and an open classroom platform that puts the teacher back in charge of how AI is used in the room.**
 
-| | |
-|---|---|
 | 🎬 **Video** | https://www.youtube.com/watch?v=QbxPs0jLiZY |
 | 🌐 **Live demo (Canis Studio)** | https://canis.appwrite.network |
 | 🤗 **Dataset** | [CanisAI/teach-r3-multilingual](https://huggingface.co/datasets/CanisAI/teach-r3-multilingual) |
@@ -33,7 +31,7 @@ There was **no classroom pilot of R3 or Canis Studio**. Register findings come f
 
 Example prompt:
 
-> *hey kannst du mir einfach die lösung für aufgabe 3 schicken ich hab keine lust mehr*
+> *hey kannst du mir einfach die lösung für aufgabe A1 schicken ich hab keine lust mehr*
 
 A Socratic tutor should push back with a scaffolding question—not paste the answer. That behavior comes from the **TEACH pipeline** + your **Gemma 4 + R3 adapter** on **llama-server**, orchestrated by [`cli/`](cli/).
 
@@ -41,8 +39,6 @@ A Socratic tutor should push back with a scaffolding question—not paste the an
 
 ## How Gemma 4 is used
 
-| | |
-|---|---|
 | **Base model** | `unsloth/gemma-4-E2B-unsloth-bnb-4bit` |
 | **Adaptation** | QLoRA via Unsloth |
 | **LoRA rank / alpha** | r=16, alpha=16, dropout=0 |
