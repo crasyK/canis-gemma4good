@@ -1,7 +1,8 @@
 # Canis Teach — Giving Teachers the Classroom Back
 
 **A Socratic, locally-running Gemma 4 tutor and an open classroom platform that puts the teacher back in charge of how AI is used in the room.**
-
+|||
+| --- | --- |
 | 🎬 **Video** | https://www.youtube.com/watch?v=QbxPs0jLiZY |
 | 🌐 **Live demo (Canis Studio)** | https://canis.appwrite.network |
 | 🤗 **Dataset** | [CanisAI/teach-r3-multilingual](https://huggingface.co/datasets/CanisAI/teach-r3-multilingual) |
@@ -39,6 +40,8 @@ A Socratic tutor should push back with a scaffolding question—not paste the an
 
 ## How Gemma 4 is used
 
+|||
+| --- | --- |
 | **Base model** | `unsloth/gemma-4-E2B-unsloth-bnb-4bit` |
 | **Adaptation** | QLoRA via Unsloth |
 | **LoRA rank / alpha** | r=16, alpha=16, dropout=0 |
