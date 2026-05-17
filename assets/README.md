@@ -31,11 +31,3 @@ flowchart LR
   C --> D
   D --> E
 ```
-
-## Screenshots checklist
-
-- `screenshots/studio-tutor-sidebar.png`
-- `screenshots/messy-prompt-example.png`
-- `screenshots/teacher-dashboard.png` (if enabled on live demo)
-
-Placeholder: until PNGs are added, the README links above will 404 — add files before publishing the public GitHub repo.
