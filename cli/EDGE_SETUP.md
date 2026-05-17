@@ -175,5 +175,6 @@ Studio: **Continue as Guest** → open A1 worksheet → AI sidebar → `http://l
 | Empty pipeline list | Start Canis API from `cli/`; check `TEACH` in `examples/` |
 | 401 / permission on demo notes | Appwrite table needs `read("users")` for anonymous sessions |
 | llama connection failed | Start `start_llama_server.bat` / `.sh` first; check `MODEL_PATH` |
+| `llama-server.exe not found in C:\llama.cpp-gemma4` | Setup usually installs to **`%USERPROFILE%\llama.cpp-gemma4`**. Set `LLAMA_DIR` in `canis_env.bat` to that folder, or re-run `.\setup-canis-edge.ps1 -InstallLlama` (writes `canis_env.bat`). |
 | `llama-server.exe not found after extract` | Re-run `.\setup-canis-edge.ps1 -InstallLlama` (older script picked wrong zip). Or download `llama-*-bin-win-cuda-*-x64.zip` manually from [releases](https://github.com/ggml-org/llama.cpp/releases) |
 | Adapter not applied | Use `.gguf` LoRA; comma-separated `--lora` in launcher |

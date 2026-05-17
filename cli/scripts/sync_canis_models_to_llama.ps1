@@ -3,8 +3,8 @@
 
 $ErrorActionPreference = "Stop"
 
-$LlamaDir = if ($env:LLAMA_DIR) { $env:LLAMA_DIR } else { "C:\llama.cpp-gemma4" }
-$TeachGemma = if ($env:CANIS_TEACH_GEMMA) { $env:CANIS_TEACH_GEMMA } else { "C:\canis.teach\GEMMA" }
+$LlamaDir = if ($env:LLAMA_DIR) { $env:LLAMA_DIR } else { Join-Path $env:USERPROFILE "llama.cpp-gemma4" }
+$TeachGemma = if ($env:CANIS_TEACH_GEMMA) { $env:CANIS_TEACH_GEMMA } else { Join-Path $env:USERPROFILE "canis.teach\GEMMA" }
 $Dest = Join-Path $LlamaDir "canis-models"
 $LoraDest = Join-Path $Dest "lora"
 

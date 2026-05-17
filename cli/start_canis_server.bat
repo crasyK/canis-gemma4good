@@ -3,9 +3,26 @@ setlocal EnableDelayedExpansion
 
 if exist "%~dp0canis_env.bat" call "%~dp0canis_env.bat"
 
-if not defined LLAMA_DIR set "LLAMA_DIR=C:\llama.cpp-gemma4"
+if not defined LLAMA_DIR set "LLAMA_DIR=%USERPROFILE%\llama.cpp-gemma4"
+if not exist "%LLAMA_DIR%\llama-server.exe" (
+    if exist "%USERPROFILE%\llama.cpp-gemma4\llama-server.exe" (
+        set "LLAMA_DIR=%USERPROFILE%\llama.cpp-gemma4"
+        set "CANIS_MODELS_DIR=%LLAMA_DIR%\canis-models"
+        set "ADAPTERS_DIR=%CANIS_MODELS_DIR%\lora"
+    )
+)
+if not exist "%LLAMA_DIR%\llama-server.exe" (
+    for /f "delims=" %%P in ('where llama-server.exe 2^>nul') do (
+        set "LLAMA_DIR=%%~dpP"
+        goto :llama_found
+    )
+)
+:llama_found
+if defined LLAMA_DIR (
+    if "%LLAMA_DIR:~-1%"=="\" set "LLAMA_DIR=%LLAMA_DIR:~0,-1%"
+)
 if not defined CANIS_MODELS_DIR set "CANIS_MODELS_DIR=%LLAMA_DIR%\canis-models"
-if not defined CANIS_TEACH_GEMMA set "CANIS_TEACH_GEMMA=C:\canis.teach\GEMMA"
+if not defined CANIS_TEACH_GEMMA set "CANIS_TEACH_GEMMA=%USERPROFILE%\canis.teach\GEMMA"
 if not defined MODEL_REL set "MODEL_REL=canis-models/gemma-4-E2B-it-Q4_K_M.gguf"
 if not defined ADAPTERS_DIR set "ADAPTERS_DIR=%CANIS_MODELS_DIR%\lora"
 
@@ -25,6 +42,8 @@ echo.
 
 if not exist "%LLAMA_DIR%\llama-server.exe" (
     echo [ERROR] llama-server.exe not found in %LLAMA_DIR%
+    echo         Run:  .\setup-canis-edge.ps1 -InstallLlama
+    echo         Or set LLAMA_DIR in canis_env.bat to your install folder.
     pause
     exit /b 1
 )
@@ -62,14 +81,15 @@ for /d %%D in ("%ADAPTERS_DIR%\*") do (
 set "LORA_ARGS="
 if !ADAPTER_COUNT! GTR 0 (
     echo.
-    echo [INFO] !ADAPTER_COUNT! adapter^(s^) loaded at scale 0 — switch in CLI with /adapter use
+    echo [INFO] !ADAPTER_COUNT! adapter^(s^) loaded at scale 0 — TEACH pipeline uses adapter "teach"
     set "LORA_ARGS=--lora !LORA_LIST! --lora-init-without-apply"
 ) else (
-    echo [WARN] No adapters in %ADAPTERS_DIR%
+    echo [WARN] No adapters in %ADAPTERS_DIR% — run setup-canis-edge.ps1 -DownloadModels
 )
 
 echo.
 echo [INFO] Model: %MODEL_REL%
+echo [INFO] LLAMA_DIR: %LLAMA_DIR%
 echo [INFO] Context: %CTX_SIZE%  GPU layers: %N_GPU_LAYERS%
 echo.
 cd /d "%LLAMA_DIR%"
